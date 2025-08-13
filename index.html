@@ -271,6 +271,15 @@
     <img src="bee-logo.png" alt="BumbleGum Bee Logo" class="bee-logo">
     <h1>BumbleGum</h1>
   </div>
+  <!-- Preset Format Modal -->
+  <div id="preset-format-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.7); z-index:9999; align-items:center; justify-content:center;">
+    <div style="background:#181818; color:#fff; border-radius:10px; max-width:500px; margin:auto; padding:2rem; border:2px solid #ffcc00;">
+      <h3 style="color:#ffcc00; margin-bottom:1rem;">Preset File Format</h3>
+      <p style="margin-bottom:1rem;">Your preset file should be a <b>.bgp</b> file containing valid JSON. Example:</p>
+      <div id="preset-format-json"></div>
+      <button onclick="document.getElementById('preset-format-modal').style.display='none'" style="background:#ffcc00; color:#181818; border:none; border-radius:6px; padding:0.5rem 1.5rem; font-weight:bold; cursor:pointer;">Close</button>
+    </div>
+  </div>
   <p class="tagline">Professional Guitar Controllers with RGB Soul</p>   
 </header>
 
@@ -407,9 +416,8 @@
   </div>
   
   <div style="text-align: center; margin-top: 2rem;">
-    <a class="button" href="https://github.com/wattsy74/BumbleGum-Presets" target="_blank">Browse LED Presets</a>
-    <a class="button secondary" href="#upload-preset" onclick="showUploadForm()">Upload LED Preset</a>
-    <a class="button secondary" href="#preset-browser" onclick="showPresetBrowser()">Interactive Preset Browser</a>
+  <a class="button" href="#preset-browser" onclick="showPresetBrowser()">Browse Presets</a>
+  <a class="button secondary" href="#upload-preset" onclick="showUploadForm()">Upload Preset</a>
   </div>
   
   <div id="preset-browser" style="display: none; margin-top: 2rem; padding: 2rem; background: rgba(15, 15, 15, 0.8); border-radius: 8px; border: 1px solid #333;">
@@ -436,7 +444,10 @@
   </div>
   
   <div id="upload-form" style="display: none; margin-top: 2rem; padding: 2rem; background: rgba(15, 15, 15, 0.8); border-radius: 8px; border: 1px solid #333;">
-    <h3 style="color: #ffcc00; margin-bottom: 1rem;">Upload Your LED Preset</h3>
+    <h3 style="color: #ffcc00; margin-bottom: 1rem;">Upload Your Preset</h3>
+    <div style="margin-bottom: 1rem;">
+      <span style="color: #ffcc00; font-weight: bold; cursor: pointer; text-decoration: underline;" onclick="showPresetFormatModal()">How should my preset file be formatted?</span>
+    </div>
     <form id="preset-upload-form">
       <div style="margin-bottom: 1rem;">
         <label style="display: block; margin-bottom: 0.5rem; color: #ccc;">Preset Name:</label>
@@ -504,6 +515,33 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
+ 
+ function showPresetFormatModal() {
+   document.getElementById('preset-format-modal').style.display = 'flex';
+   document.getElementById('preset-format-json').innerHTML = `<pre style="background:#222; color:#ffcc00; padding:1rem; border-radius:6px; font-size:0.95em; margin-bottom:1rem;">{
+   \"name\": \"My Custom Preset\",
+   \"author\": \"Your Name\",
+   \"description\": \"Describe your LED effect\",
+   \"version\": \"1.0\",
+   \"created\": \"2025-08-14\",
+   \"preset\": {
+     \"green-fret-pressed\": \"#00FF00\",
+     \"red-fret-pressed\": \"#FF0000\",
+     \"yellow-fret-pressed\": \"#FFFF00\",
+     \"blue-fret-pressed\": \"#0000FF\",
+     \"orange-fret-pressed\": \"#FF4D00\",
+     \"green-fret-released\": \"#008000\",
+     \"red-fret-released\": \"#800000\",
+     \"yellow-fret-released\": \"#808000\",
+     \"blue-fret-released\": \"#000080\",
+     \"orange-fret-released\": \"#804000\",
+     \"strum-up-active\": \"#FFFFFF\",
+     \"strum-down-active\": \"#FFFFFF\",
+     \"strum-up-released\": \"#808080\",
+     \"strum-down-released\": \"#808080\"
+   }
+ }`;
+ }
 
 // GitHub Preset Sharing Functions
 function showUploadForm() {
