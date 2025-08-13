@@ -516,9 +516,11 @@ function hideUploadForm() {
 }
 
 function showPresetBrowser() {
+  console.log('Opening preset browser...');
   document.getElementById('preset-browser').style.display = 'block';
   document.getElementById('upload-form').style.display = 'none';
   document.getElementById('preset-browser').scrollIntoView({ behavior: 'smooth' });
+  console.log('About to call loadCommunityPresets...');
   loadCommunityPresets();
 }
 
@@ -531,7 +533,15 @@ let communityPresets = [];
 let selectedPresets = new Set();
 
 async function loadCommunityPresets() {
+  console.log('loadCommunityPresets function called');
   const presetGrid = document.getElementById('preset-grid');
+  
+  if (!presetGrid) {
+    console.error('preset-grid element not found!');
+    return;
+  }
+  
+  console.log('preset-grid element found:', presetGrid);
   presetGrid.innerHTML = '<p style="color: #ccc;">Loading community presets...</p>';
   
   try {
@@ -848,19 +858,13 @@ async function uploadPresetToGitHub(name, description, file) {
   // - Automatic PR creation for community review
 }
 
-// Load and display community presets from GitHub
-async function loadCommunityPresets() {
-  try {
-    const response = await fetch('https://api.github.com/repos/wattsy74/BumbleGum-Presets/contents/presets');
-    const data = await response.json();
-    
-    // Process and display presets
-    // TODO: Implement preset gallery display
-    console.log('Community presets:', data);
-  } catch (error) {
-    console.error('Failed to load presets:', error);
+// Load community presets when browser is opened
+document.addEventListener('DOMContentLoaded', function() {
+  if (document.getElementById('preset-browser').style.display !== 'none') {
+    loadCommunityPresets();
   }
-}
+});
+
 </script>
 
 </body>
