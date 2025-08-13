@@ -8,6 +8,7 @@
   <title>BumbleGum | Professional RGB Guitar Controllers & Configurator App</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Version: 2025-08-13-v2 - Fixed preset browser updateSelectedCount issue -->
   <style>
     * {
       box-sizing: border-box;
@@ -616,8 +617,6 @@ async function loadCommunityPresets() {
     // Make sure to render the grid after loading
     renderPresetGrid();
     updateSelectedPresets();
-    
-    renderPresetGrid();
     
   } catch (error) {
     console.error('Failed to load community presets:', error);
