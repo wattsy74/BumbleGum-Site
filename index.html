@@ -615,7 +615,7 @@ async function loadCommunityPresets() {
     
     // Make sure to render the grid after loading
     renderPresetGrid();
-    updateSelectedCount();
+    updateSelectedPresets();
     
     renderPresetGrid();
     
@@ -720,6 +720,14 @@ function renderPresetGrid() {
   } catch (error) {
     console.error('Error rendering preset grid:', error);
     presetGrid.innerHTML = `<p style="color: #ff4444;">Error rendering presets: ${error.message}</p>`;
+  }
+}
+
+function updateSelectedCount() {
+  const selectedCount = selectedPresets.size;
+  const selectedCountElement = document.querySelector('#preset-browser h3');
+  if (selectedCountElement) {
+    selectedCountElement.textContent = `Selected Presets (${selectedCount})`;
   }
 }
 
