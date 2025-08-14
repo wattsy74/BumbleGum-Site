@@ -27,6 +27,14 @@
       text-align: center;
       padding: 3rem 2rem;
       background: rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+    
+    header a[href*="etsy"]:hover {
+      background: rgba(255, 204, 0, 0.2) !important;
+      border-color: rgba(255, 204, 0, 0.6) !important;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(255, 204, 0, 0.2);
     }
     
     .title-container {
@@ -267,6 +275,16 @@
 <body>
 
 <header>
+  <!-- Other Products Link -->
+  <div style="position: absolute; top: 1rem; right: 2rem;">
+    <a href="https://www.etsy.com/uk/shop/BumbleGumDesign" target="_blank" 
+       style="color: #ffcc00; text-decoration: none; font-size: 1rem; font-weight: 500; 
+              background: rgba(255, 204, 0, 0.1); padding: 0.5rem 1rem; border-radius: 20px; 
+              border: 1px solid rgba(255, 204, 0, 0.3); transition: all 0.3s ease;">
+      Other Products →
+    </a>
+  </div>
+  
   <div class="title-container">
     <img src="bee-logo.png" alt="BumbleGum Bee Logo" class="bee-logo">
     <h1>BumbleGum</h1>
@@ -475,6 +493,17 @@
 </section>
 
 <footer>
+  <!-- Enhanced footer section for other products -->
+  <div style="margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid #444; text-align: center;">
+    <p style="color: #ffcc00; font-weight: bold; margin-bottom: 1rem; font-size: 1.1rem;">🐝 Explore More BumbleGum Products</p>
+    <p style="color: #ccc; margin-bottom: 1.5rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+      Guitar controllers are just one part of our creative range. Discover our full collection of custom products and unique designs.
+    </p>
+    <a href="https://www.etsy.com/uk/shop/BumbleGumDesign" target="_blank" class="button secondary">
+      View All Products on Etsy
+    </a>
+  </div>
+  
   <p>&copy; 2025 BumbleGum Design | Crafted with passion for rhythm gaming</p>
   <p style="margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.8;">
     Professional guitar controllers • RGB lighting systems • Custom gaming hardware
