@@ -270,6 +270,20 @@
         grid-template-columns: 1fr;
         gap: 1rem;
       }
+      
+      /* Mobile preset styling */
+      #preset-preview-grid,
+      #preset-grid {
+        grid-template-columns: 1fr !important;
+        justify-items: center !important;
+        gap: 1rem !important;
+      }
+      
+      .preset-card {
+        width: 100% !important;
+        max-width: 320px !important;
+        margin: 0 auto !important;
+      }
     }
   </style>
 </head>
@@ -426,8 +440,8 @@
   
   <!-- Always visible preset preview -->
   <div id="preset-preview" style="margin-top: 2rem; padding: 1.5rem; background: rgba(15, 15, 15, 0.6); border-radius: 8px; border: 1px solid #333;">
-    <h3 style="color: #ffcc00; margin-bottom: 1rem;">Featured Presets</h3>
-    <div id="preset-preview-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+    <h3 style="color: #ffcc00; margin-bottom: 1rem; text-align: center;">Featured Presets</h3>
+    <div id="preset-preview-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem; justify-items: center;">
       <!-- Preview presets will be loaded here -->
     </div>
     <div style="text-align: center;">
@@ -437,10 +451,10 @@
   </div>
   
   <div id="preset-browser" style="display: none; margin-top: 2rem; padding: 2rem; background: rgba(15, 15, 15, 0.8); border-radius: 8px; border: 1px solid #333;">
-    <h3 style="color: #ffcc00; margin-bottom: 1rem;">All Community Presets</h3>
-    <p style="color: #ccc; margin-bottom: 1.5rem;">Preview colors and select presets to create your custom collection</p>
+    <h3 style="color: #ffcc00; margin-bottom: 1rem; text-align: center;">All Community Presets</h3>
+    <p style="color: #ccc; margin-bottom: 1.5rem; text-align: center;">Preview colors and select presets to create your custom collection</p>
     
-    <div id="preset-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+    <div id="preset-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; justify-items: center;">
       <!-- All presets will be loaded here -->
     </div>
     
@@ -922,6 +936,9 @@ function renderPresetGrid() {
           padding: 1rem; 
           cursor: pointer;
           transition: all 0.3s ease;
+          max-width: 350px;
+          width: 100%;
+          margin: 0 auto;
         " onclick="togglePresetSelection('${preset.id}')">
           <h4 style="color: #ffcc00; margin-bottom: 0.5rem;">${preset.name}</h4>
           <p style="color: #ccc; font-size: 0.9rem; margin-bottom: 1rem;">${preset.description}</p>
