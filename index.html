@@ -842,7 +842,7 @@ function exportSelectedPresets() {
   communityPresets
     .filter(p => selectedPresets.has(p.id))
     .forEach(preset => {
-      selectedPresetData[`Community - ${preset.name}`] = preset.preset;
+      selectedPresetData[preset.name] = preset.preset;
     });
   
   const exportData = {
