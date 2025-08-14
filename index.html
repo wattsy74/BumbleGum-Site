@@ -877,25 +877,52 @@ document.addEventListener('DOMContentLoaded', function() {
   if (uploadForm) {
     uploadForm.addEventListener('submit', async function(e) {
       e.preventDefault();
-      
       const name = document.getElementById('preset-name').value;
       const description = document.getElementById('preset-description').value;
       const fileInput = document.getElementById('preset-file');
-      
       if (!fileInput.files[0]) {
         alert('Please select a preset file to upload.');
         return;
       }
-      
-      try {
-        await uploadPresetToGitHub(name, description, fileInput.files[0]);
-        alert('Preset uploaded successfully! It will appear in the repository shortly.');
-        hideUploadForm();
-        uploadForm.reset();
-      } catch (error) {
-        console.error('Upload error:', error);
-        alert('Upload failed. Please try again or submit manually to the GitHub repository.');
-      }
+      // Validate file before upload
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+      reader.onload = async function(event) {
+        let data;
+        try {
+          data = JSON.parse(event.target.result);
+        } catch (err) {
+          alert('Invalid JSON format in preset file.');
+          return;
+        }
+        // Basic validation
+        if (!data.name || !data.preset || typeof data.preset !== 'object') {
+          alert('Preset file must contain "name" and "preset" fields.');
+          return;
+        }
+        // Optionally check for required color keys
+        const requiredKeys = [
+          'green-fret-pressed', 'red-fret-pressed', 'yellow-fret-pressed', 'blue-fret-pressed', 'orange-fret-pressed',
+          'green-fret-released', 'red-fret-released', 'yellow-fret-released', 'blue-fret-released', 'orange-fret-released',
+          'strum-up-active', 'strum-down-active', 'strum-up-released', 'strum-down-released'
+        ];
+        const missing = requiredKeys.filter(k => !(k in data.preset));
+        if (missing.length > 0) {
+          alert('Preset is missing required keys: ' + missing.join(', '));
+          return;
+        }
+        // If valid, proceed with upload
+        try {
+          await uploadPresetToGitHub(name, description, file);
+          alert('Preset uploaded successfully! It will appear in the repository shortly.');
+          hideUploadForm();
+          uploadForm.reset();
+        } catch (error) {
+          console.error('Upload error:', error);
+          alert('Upload failed. Please try again or submit manually to the GitHub repository.');
+        }
+      };
+      reader.readAsText(file);
     });
   }
 });
