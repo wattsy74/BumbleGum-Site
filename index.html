@@ -313,6 +313,18 @@
       <button onclick="document.getElementById('preset-format-modal').style.display='none'" style="background:#ffcc00; color:#181818; border:none; border-radius:6px; padding:0.5rem 1.5rem; font-weight:bold; cursor:pointer;">Close</button>
     </div>
   </div>
+  
+  <!-- Demo Video Modal -->
+  <div id="demo-video-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.9); z-index:9999; align-items:center; justify-content:center;">
+    <div style="background:#181818; color:#fff; border-radius:10px; max-width:90vw; max-height:90vh; margin:auto; padding:1.5rem; border:2px solid #ffcc00; position:relative;">
+      <button onclick="closeDemoVideo()" style="position:absolute; top:10px; right:15px; background:none; border:none; color:#ffcc00; font-size:1.5rem; cursor:pointer; font-weight:bold;">×</button>
+      <h3 style="color:#ffcc00; margin-bottom:1rem; text-align:center;">BumbleGum Configurator Demo</h3>
+      <video id="demo-video-player" controls style="width:100%; max-width:800px; border-radius:8px; border:1px solid #333;">
+        <source src="demo-video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
   <p class="tagline">Professional Guitar Controllers with RGB Soul</p>   
 </header>
 
@@ -427,6 +439,7 @@
   
   <div style="text-align: center; margin-top: 2rem;">
     <a class="button" href="https://github.com/wattsy74/BumbleGum-Guitars-Configurator/releases/latest/download/BumbleGum-Guitars-Configurator.exe" target="_blank">Download for Windows</a>
+    <button class="button" onclick="openDemoVideo()" style="margin-left: 1rem; height: auto; line-height: inherit;">Demo Video</button>
   </div>
 </section>
 
@@ -1204,6 +1217,28 @@ async function uploadPresetToGitHub(name, description, file) {
   // - Automatic PR creation for community review
 }
 
+// Demo video modal functions
+function openDemoVideo() {
+  const modal = document.getElementById('demo-video-modal');
+  const video = document.getElementById('demo-video-player');
+  
+  modal.style.display = 'flex';
+  // Small delay to ensure modal is visible before playing
+  setTimeout(() => {
+    video.currentTime = 0;
+    video.play();
+  }, 100);
+}
+
+function closeDemoVideo() {
+  const modal = document.getElementById('demo-video-modal');
+  const video = document.getElementById('demo-video-player');
+  
+  video.pause();
+  video.currentTime = 0;
+  modal.style.display = 'none';
+}
+
 // Load community presets when browser is opened
 document.addEventListener('DOMContentLoaded', function() {
   // Load preset previews on page load
@@ -1211,6 +1246,17 @@ document.addEventListener('DOMContentLoaded', function() {
   
   if (document.getElementById('preset-browser').style.display !== 'none') {
     loadCommunityPresets();
+  }
+  
+  // Close demo video modal when clicking outside the video container
+  const demoVideoModal = document.getElementById('demo-video-modal');
+  if (demoVideoModal) {
+    demoVideoModal.addEventListener('click', function(e) {
+      // Close if clicking on the modal background (not the video container)
+      if (e.target === demoVideoModal) {
+        closeDemoVideo();
+      }
+    });
   }
 });
 
